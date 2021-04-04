@@ -1,5 +1,5 @@
 import {
-  VuexModule, Module, getModule, MutationAction,
+  VuexModule, Module, getModule, MutationAction, Mutation,
 } from 'vuex-module-decorators';
 import store from '@/store/store';
 // eslint-disable-next-line import/extensions
@@ -16,6 +16,13 @@ class UsersModule extends VuexModule {
   user: User | null = null
 
   profile: Profile | null = null
+
+  @Mutation
+  setUser(user: User) { this.user = user; }
+
+  get username() {
+    return (this.user && this.user.username) || null;
+  }
 
   @MutationAction({ mutate: ['user'] })
   // eslint-disable-next-line class-methods-use-this

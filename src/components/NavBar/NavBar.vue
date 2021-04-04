@@ -17,8 +17,15 @@
             <i class="ion-gear-a"></i>&nbsp;Settings
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="">Sign up</a>
+        <li class="nav-item" v-if="!username">
+          <router-link class="nav-link" to="/register">
+            Sign up
+          </router-link>
+        </li>
+        <li class="nav-item" v-else>
+          <router-link class="nav-link" to="/login">
+            Sign in
+          </router-link>
         </li>
       </ul>
     </div>
@@ -26,10 +33,16 @@
 
 </template>
 
-<script>
-export default {
-  name: 'NavBar',
-};
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator';
+import users from '@/store/modules/users';
+
+@Component
+export default class NavBar extends Vue {
+  test() {
+    console.log('users', users);
+  }
+}
 </script>
 
 <style scoped>
