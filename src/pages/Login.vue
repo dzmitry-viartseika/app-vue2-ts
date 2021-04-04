@@ -32,7 +32,7 @@
             </fieldset>
             <button
               class="btn btn-lg btn-primary pull-xs-right"
-              @click="loginUser()"
+              @click="login()"
             >
               Sign in
             </button>
@@ -56,7 +56,7 @@ export default class extends Vue {
 
   password = ''
 
-  async loginUser() {
+  login() {
     try {
       const user = {
         email: this.email,
