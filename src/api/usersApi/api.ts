@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UserSubmit } from '@/store/module';
+import { UserSubmit } from '@/store/models';
 import { CURRENT_SERVER } from '@/api/domain';
 
 export default {

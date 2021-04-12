@@ -2,8 +2,7 @@ import {
   VuexModule, Module, getModule, MutationAction, Mutation,
 } from 'vuex-module-decorators';
 import store from '@/store/store';
-// eslint-disable-next-line import/extensions
-import { Profile, User, UserSubmit } from '@/store/module.ts';
+import { Profile, User, UserSubmit } from '@/store/models.d';
 import usersApi from '@/api/usersApi/api';
 
 @Module({
