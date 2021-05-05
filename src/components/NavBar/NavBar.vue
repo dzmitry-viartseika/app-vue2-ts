@@ -17,7 +17,7 @@
             <i class="ion-gear-a"></i>&nbsp;Settings
           </a>
         </li>
-        <li class="nav-item" v-if="!username">
+        <li class="nav-item" v-if="!userName">
           <router-link class="nav-link" to="/register">
             Sign up
           </router-link>
@@ -39,8 +39,12 @@ import users from '@/store/modules/users';
 
 @Component
 export default class NavBar extends Vue {
-  test() {
-    console.log('users', users);
+  get userName() {
+    return users.userName;
+  }
+
+  created() {
+    console.log('userName', this.userName);
   }
 }
 </script>

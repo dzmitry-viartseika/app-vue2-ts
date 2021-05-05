@@ -5,12 +5,13 @@
         <div class="col-md-6 offset-md-3 col-xs-12">
           <h1 class="text-xs-center">Sign in</h1>
           <p class="text-xs-center">
-            <a href="">Have an account?</a>
+            <router-link to="/register">
+              Have an account?
+            </router-link>
           </p>
-          <ul class="error-messages">
-            <li>That email is already taken</li>
-          </ul>
-
+<!--          <ul class="error-messages">-->
+<!--            <li>That email is already taken</li>-->
+<!--          </ul>-->
           <form>
             <fieldset class="form-group">
               <input
@@ -44,12 +45,12 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import usersApi from '@/api/usersApi/api';
+import { loginUser } from '@/api/api';
 import { UserResponse } from '@/store/models.d';
 import users from '@/store/modules/users';
 
 @Component
-export default class extends Vue {
+export default class Login extends Vue {
   email = ''
 
   password = ''
@@ -61,10 +62,10 @@ export default class extends Vue {
         password: this.password,
       };
       users.login(user);
-      const response = usersApi.loginUser(user);
-      return (response.data as UserResponse).user;
+      const response = loginUser(user);
+      console.log('response', response);
+      // return (response.data as UserResponse).user;
     } catch (e) {
-      // eslint-disable-next-line no-console
       console.error(e);
     }
   }

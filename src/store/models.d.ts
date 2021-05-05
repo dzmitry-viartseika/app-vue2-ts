@@ -18,8 +18,18 @@ export interface UserSubmit {
   password: string
 }
 
+export interface newUser {
+  username: string
+  email: string
+  password: string
+}
+
+export interface newUserResponse {
+  user: newUser
+}
+
 export interface UserResponse {
-  user: User;
+  user: User
 }
 
 export interface ProfileResponse {

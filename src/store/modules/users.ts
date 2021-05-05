@@ -1,12 +1,13 @@
 import {
-  VuexModule, Module, getModule, MutationAction, Mutation,
+  VuexModule, Module, getModule, MutationAction, Mutation, Action,
 } from 'vuex-module-decorators';
 import store from '@/store/store';
 import { Profile, User, UserSubmit } from '@/store/models.d';
-import usersApi from '@/api/usersApi/api';
+import { loginUser } from '@/api/api';
 
 @Module({
   namespaced: false,
+  dynamic: true,
   name: 'users',
   store,
 })
@@ -16,17 +17,23 @@ class UsersModule extends VuexModule {
 
   profile: Profile | null = null
 
-  @Mutation
-  setUser(user: User) { this.user = user; }
-
-  get username() {
-    return (this.user && this.user.username) || null;
+  get userName() {
+    return this.user || null;
   }
 
+  // @Mutation
+  // setUser(user: User) { this.user = user; }
+  //
+  // @Action({ commit: 'setUser' })
+  // async login(userSubmit: UserSubmit) {
+  //   const user = await loginUser(userSubmit);
+  //   return user;
+  // }
+  // или  MutationAction
+
   @MutationAction({ mutate: ['user'] })
-  // eslint-disable-next-line class-methods-use-this
   async login(userSubmit: UserSubmit) {
-    const user = await usersApi.loginUser(userSubmit);
+    const user = await loginUser(userSubmit);
     return { user };
   }
 }
