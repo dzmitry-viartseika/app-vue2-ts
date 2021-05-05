@@ -23,25 +23,28 @@ class UsersModule extends VuexModule {
     return this.user || null;
   }
 
-  // @Mutation
-  // setUser(user: User) { this.user = user; }
-  //
-  // @Action({ commit: 'setUser' })
-  // async login(userSubmit: UserSubmit) {
-  //   const user = await loginUser(userSubmit);
-  //   return user;
-  // }
-  // или  MutationAction
+  @Mutation
+  setUser(user: User) { this.user = user; }
 
-  @MutationAction({ mutate: ['user'] })
+  @Action({ commit: 'setUser' })
   async login(userSubmit: UserSubmit) {
     const user = await loginUser(userSubmit);
-    return { user };
+    console.log('user', user);
+    return user;
   }
+  // или  MutationAction
+
+  // @MutationAction({ mutate: ['user'] })
+  // async login(userSubmit: UserSubmit) {
+  //   const user = await loginUser(userSubmit);
+  //   console.log('user', user);
+  //   return { user };
+  // }
 
   @MutationAction({ mutate: ['user'] })
   async register(userSubmit: newUser) {
     const user = await registerUser(userSubmit);
+    console.log('user', user);
     return { user };
   }
 }

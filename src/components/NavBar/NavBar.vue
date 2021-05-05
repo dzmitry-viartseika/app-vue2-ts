@@ -40,7 +40,7 @@ import users from '@/store/modules/users';
 @Component
 export default class NavBar extends Vue {
   get userName() {
-    return users.userName;
+    return users.user?.username;
   }
 
   created() {

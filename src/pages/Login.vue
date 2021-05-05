@@ -64,6 +64,7 @@ export default class Login extends Vue {
       const response = loginUser(user);
       console.log('response', response);
       // return (response.data as UserResponse).user;
+      this.$router.push('/');
     } catch (e) {
       console.error(e);
     }
