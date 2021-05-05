@@ -9,21 +9,39 @@
             <a href="">Have an account?</a>
           </p>
 
-          <ul class="error-messages">
-            <li>That email is already taken</li>
-          </ul>
+<!--          <ul class="error-messages">-->
+<!--            <li>That email is already taken</li>-->
+<!--          </ul>-->
 
           <form>
             <fieldset class="form-group">
-              <input class="form-control form-control-lg" type="text" placeholder="Your Name">
+              <input
+                class="form-control form-control-lg"
+                type="text"
+                placeholder="Your Name"
+                v-model="username"
+              >
             </fieldset>
             <fieldset class="form-group">
-              <input class="form-control form-control-lg" type="text" placeholder="Email">
+              <input
+                class="form-control form-control-lg"
+                type="text"
+                placeholder="Email"
+                v-model="email"
+              >
             </fieldset>
             <fieldset class="form-group">
-              <input class="form-control form-control-lg" type="password" placeholder="Password">
+              <input
+                class="form-control form-control-lg"
+                type="password"
+                placeholder="Password"
+                v-model="password"
+              >
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right">
+            <button
+              class="btn btn-lg btn-primary pull-xs-right"
+              @click="register"
+            >
               Sign up
             </button>
           </form>
@@ -34,10 +52,35 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Register',
-};
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator';
+import { registerUser } from '@/api/api';
+import users from '@/store/modules/users';
+
+@Component
+export default class Register extends Vue {
+  username = ''
+
+  email = ''
+
+  password = ''
+
+  register() {
+    try {
+      const user = {
+        email: this.email,
+        password: this.password,
+        username: this.username,
+      };
+      users.register(user);
+      const response = registerUser(user);
+      console.log('response', response);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+}
+
 </script>
 
 <style scoped>

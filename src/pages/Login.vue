@@ -46,7 +46,6 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import { loginUser } from '@/api/api';
-import { UserResponse } from '@/store/models.d';
 import users from '@/store/modules/users';
 
 @Component

@@ -35,7 +35,9 @@ export async function loginUser(user: UserSubmit): Promise<User|undefined> {
   return (response.data as UserResponse).user;
 }
 
-export async function registerUser(user: newUser): Promise<User|undefined> {
+// testwertey@gmail.com
+
+export async function registerUser(user: newUser): Promise<newUser|undefined> {
   const response = await conduitApi.post('/users/', {
     user,
   });

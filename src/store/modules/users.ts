@@ -2,8 +2,10 @@ import {
   VuexModule, Module, getModule, MutationAction, Mutation, Action,
 } from 'vuex-module-decorators';
 import store from '@/store/store';
-import { Profile, User, UserSubmit } from '@/store/models.d';
-import { loginUser } from '@/api/api';
+import {
+  newUser, Profile, User, UserSubmit,
+} from '@/store/models.d';
+import { loginUser, registerUser } from '@/api/api';
 
 @Module({
   namespaced: false,
@@ -34,6 +36,12 @@ class UsersModule extends VuexModule {
   @MutationAction({ mutate: ['user'] })
   async login(userSubmit: UserSubmit) {
     const user = await loginUser(userSubmit);
+    return { user };
+  }
+
+  @MutationAction({ mutate: ['user'] })
+  async register(userSubmit: newUser) {
+    const user = await registerUser(userSubmit);
     return { user };
   }
 }
