@@ -33,9 +33,14 @@ class UsersModule extends VuexModule {
 
   @Action({ commit: 'setUser' })
   async login(userSubmit: UserSubmit) {
-    const user = await loginUser(userSubmit);
-    console.log('user', user);
-    return user;
+    try {
+      const user = await loginUser(userSubmit);
+      console.log('user', user);
+      return user;
+    } catch (e) {
+      console.error(e);
+      throw new Error('Invalid userName or password');
+    }
   }
   // или  MutationAction
 

@@ -52,7 +52,7 @@ export async function registerUser(user: newUser): Promise<newUser|undefined> {
   return (response.data as newUserResponse).user;
 }
 
-export async function getGlobalFeed() {
+export async function getFeed() {
   const response = await conduitApi.get('/articles');
   return response.data as ArticleResponse;
 }

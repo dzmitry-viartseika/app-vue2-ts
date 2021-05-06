@@ -9,9 +9,11 @@
               Create new account?
             </router-link>
           </p>
-<!--          <ul class="error-messages">-->
-<!--            <li>That email is already taken</li>-->
-<!--          </ul>-->
+          <ul class="error-messages" v-if="loginError">
+            <li>
+              {{ loginError }}
+            </li>
+          </ul>
           <form>
             <fieldset class="form-group">
               <input
@@ -54,18 +56,20 @@ export default class Login extends Vue {
 
   password = ''
 
+  loginError = ''
+
   login() {
-    try {
-      const user = {
-        email: this.email,
-        password: this.password,
-      };
-      users.login(user);
-      loginUser(user);
+    const user = {
+      email: this.email,
+      password: this.password,
+    };
+    users.login(user).then(() => {
       this.$router.push('/');
-    } catch (e) {
-      console.error(e);
-    }
+    })
+      .catch((e) => {
+        this.loginError = 'Inavlid Username or Password';
+        console.error(e);
+      });
   }
 }
 

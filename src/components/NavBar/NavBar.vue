@@ -17,15 +17,20 @@
             <i class="ion-gear-a"></i>&nbsp;Settings
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="">
+            <i class="ion-gear-a"></i>&nbsp;Settings
+          </a>
+        </li>
         <li class="nav-item" v-if="!userName">
           <router-link class="nav-link" to="/register">
             Sign up
           </router-link>
         </li>
         <li class="nav-item" v-else>
-          <div>
+          <router-link class="nav-link" :to="`@${userName}`">
             {{ userName }}
-          </div>
+          </router-link>
         </li>
       </ul>
     </div>
