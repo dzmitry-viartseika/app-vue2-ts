@@ -23,7 +23,11 @@
             </ul>
           </div>
 
-          <ArticlePreview />
+          <ArticlePreview
+            v-for="item in feed"
+            :key='item.slug'
+            :item="item"
+          />
 
         </div>
 
@@ -53,11 +57,21 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import ArticlePreview from '@/components/Article/ArticlePreview.vue';
+import articles from '@/store/modules/articles';
+import { Article } from '@/store/models.d';
 
 @Component({
   components: {
     ArticlePreview,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  feed: Article[] = [];
+
+  async created() {
+    articles.refreshGlobalFeed().then(() => {
+      this.feed = articles.globalFeed;
+    });
+  }
+}
 </script>
