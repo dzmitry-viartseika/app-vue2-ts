@@ -3,9 +3,11 @@ import {
 } from 'vuex-module-decorators';
 import store from '@/store/store';
 import {
-  newUser, Profile, User, UserSubmit,
+  newUser, Profile, User, UserForUpdate, UserSubmit,
 } from '@/store/models.d';
-import { fetchProfile, loginUser, registerUser } from '@/api/api';
+import {
+  fetchProfile, loginUser, registerUser, updateUser,
+} from '@/api/api';
 
 @Module({
   namespaced: false,
@@ -41,6 +43,12 @@ class UsersModule extends VuexModule {
       console.error(e);
       throw new Error('Invalid userName or password');
     }
+  }
+
+  @MutationAction
+  async updateSelfProfile(userUpdateFields: UserForUpdate) {
+    const user = await updateUser(userUpdateFields);
+    return { user };
   }
   // или  MutationAction
 

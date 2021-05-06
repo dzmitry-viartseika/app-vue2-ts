@@ -8,6 +8,7 @@ import {
   ArticleResponse,
   ProfileResponse,
   Profile,
+  UserForUpdate,
 } from '@/store/models.d';
 
 export const conduitApi = axios.create({
@@ -55,4 +56,9 @@ export async function registerUser(user: newUser): Promise<newUser|undefined> {
 export async function getFeed() {
   const response = await conduitApi.get('/articles');
   return response.data as ArticleResponse;
+}
+
+export async function updateUser(user: UserForUpdate) {
+  const response = await conduitApi.put('/user', user);
+  return response.data as User;
 }

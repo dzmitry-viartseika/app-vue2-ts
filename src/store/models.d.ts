@@ -24,6 +24,14 @@ export interface newUser {
   password: string
 }
 
+export interface UserForUpdate {
+  username?: string
+  email?: string
+  bio?: string
+  password?: string
+  image?: string
+}
+
 export interface newUserResponse {
   user: newUser
 }

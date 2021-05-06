@@ -33,6 +33,11 @@ const routes: Array<RouteConfig> = [
     name: 'profile',
     component: () => import('@/pages/Profile.vue'),
   },
+  {
+    path: '/editor',
+    name: 'editor',
+    component: () => import('@/pages/Editor.vue'),
+  },
 ];
 
 const router = new VueRouter({
