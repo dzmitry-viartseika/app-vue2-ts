@@ -6,13 +6,10 @@
         <div class="col-md-6 offset-md-3 col-xs-12">
           <h1 class="text-xs-center">Sign up</h1>
           <p class="text-xs-center">
-            <a href="">Have an account?</a>
+            <router-link to="/login">
+              Have an account?
+            </router-link>
           </p>
-
-<!--          <ul class="error-messages">-->
-<!--            <li>That email is already taken</li>-->
-<!--          </ul>-->
-
           <form>
             <fieldset class="form-group">
               <input
@@ -46,7 +43,6 @@
             </button>
           </form>
         </div>
-
       </div>
     </div>
   </div>
@@ -75,6 +71,7 @@ export default class Register extends Vue {
       users.register(user);
       const response = registerUser(user);
       console.log('response', response);
+      this.$router.push('/');
     } catch (e) {
       console.error(e);
     }

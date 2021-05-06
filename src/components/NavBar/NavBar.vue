@@ -23,9 +23,9 @@
           </router-link>
         </li>
         <li class="nav-item" v-else>
-          <router-link class="nav-link" to="/login">
-            Sign in
-          </router-link>
+          <div>
+            {{ userName }}
+          </div>
         </li>
       </ul>
     </div>

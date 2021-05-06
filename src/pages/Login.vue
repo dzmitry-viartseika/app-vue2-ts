@@ -6,7 +6,7 @@
           <h1 class="text-xs-center">Sign in</h1>
           <p class="text-xs-center">
             <router-link to="/register">
-              Have an account?
+              Create new account?
             </router-link>
           </p>
 <!--          <ul class="error-messages">-->
@@ -61,9 +61,7 @@ export default class Login extends Vue {
         password: this.password,
       };
       users.login(user);
-      const response = loginUser(user);
-      console.log('response', response);
-      // return (response.data as UserResponse).user;
+      loginUser(user);
       this.$router.push('/');
     } catch (e) {
       console.error(e);

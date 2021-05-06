@@ -35,3 +35,28 @@ export interface UserResponse {
 export interface ProfileResponse {
   profile: Profile;
 }
+
+export interface Author {
+  username: string;
+  bio: string;
+  image: string;
+  following: boolean;
+}
+
+export interface Article {
+  slug: string;
+  title: string;
+  description: string;
+  body: string;
+  tagList?: (string)[] | null;
+  createdAt: string;
+  updatedAt: string;
+  favorited: boolean;
+  favoritesCount: number;
+  author: Author;
+}
+
+export interface ArticleResponse {
+  articles?: (Article)[] | null;
+  articlesCount: number;
+}
