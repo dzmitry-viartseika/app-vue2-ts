@@ -5,7 +5,7 @@ import store from '@/store/store';
 import {
   newUser, Profile, User, UserSubmit,
 } from '@/store/models.d';
-import { loginUser, registerUser } from '@/api/api';
+import { fetchProfile, loginUser, registerUser } from '@/api/api';
 
 @Module({
   namespaced: false,
@@ -19,12 +19,17 @@ class UsersModule extends VuexModule {
 
   profile: Profile | null = null
 
-  get userName() {
-    return this.user || null;
-  }
-
   @Mutation
   setUser(user: User) { this.user = user; }
+
+  @Mutation
+  setProfile(profile: Profile) { this.profile = profile; }
+
+  @Action({ commit: 'setProfile' })
+  async loadProfile(userName: string) {
+    const profile = await fetchProfile(userName);
+    return profile;
+  }
 
   @Action({ commit: 'setUser' })
   async login(userSubmit: UserSubmit) {

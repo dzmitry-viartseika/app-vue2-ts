@@ -4,7 +4,10 @@ import {
   User,
   UserResponse,
   newUser,
-  newUserResponse, ArticleResponse,
+  newUserResponse,
+  ArticleResponse,
+  ProfileResponse,
+  Profile,
 } from '@/store/models.d';
 
 export const conduitApi = axios.create({
@@ -33,6 +36,11 @@ export async function loginUser(user: UserSubmit): Promise<User|undefined> {
     user,
   });
   return (response.data as UserResponse).user;
+}
+
+export async function fetchProfile(userName: string) : Promise<Profile|undefined> {
+  const response = await conduitApi.get(`/profiles/${userName}`);
+  return (response.data as ProfileResponse).profile;
 }
 
 // testwertey@gmail.com

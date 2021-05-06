@@ -9,7 +9,8 @@
             <img src="http://i.imgur.com/Qr71crq.jpg" class="user-img" />
             <h4>Eric Simons</h4>
             <p>
-              Cofounder @GoThinkster, lived in Aol's HQ for a few months, kinda looks like Peeta from the Hunger Games
+              Cofounder @GoThinkster, lived in Aol's HQ for a few months, kinda
+              looks like Peeta from the Hunger Games
             </p>
             <button class="btn btn-sm btn-outline-secondary action-btn">
               <i class="ion-plus-round"></i>
@@ -85,10 +86,13 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Profile',
-};
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator';
+
+@Component({})
+export default class Profile extends Vue {
+
+}
 </script>
 
 <style scoped>

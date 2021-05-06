@@ -28,6 +28,11 @@ const routes: Array<RouteConfig> = [
     name: 'settings',
     component: () => import('@/pages/Settings.vue'),
   },
+  {
+    path: '/:usernae(@.*)',
+    name: 'profile',
+    component: () => import('@/pages/Profile.vue'),
+  },
 ];
 
 const router = new VueRouter({
