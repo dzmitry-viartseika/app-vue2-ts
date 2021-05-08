@@ -71,7 +71,7 @@ export default class Home extends Vue {
       email: this.user.email,
       bio: this.user.bio,
     });
-
+    console.log('response', response);
     this.user = users.user || {};
   }
 }
