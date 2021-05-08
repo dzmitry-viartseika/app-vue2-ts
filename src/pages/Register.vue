@@ -70,7 +70,6 @@ export default class Register extends Vue {
       };
       users.register(user);
       const response = registerUser(user);
-      console.log('response', response);
       this.$router.push('/');
     } catch (e) {
       console.error(e);

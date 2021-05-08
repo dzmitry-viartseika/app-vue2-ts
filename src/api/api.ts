@@ -56,6 +56,10 @@ export async function getFeed() {
 
 export async function updateUser(user: UserForUpdate): Promise<User> {
   const response = await conduitApi.put('/user', user);
-  console.log('response', response);
+  return (response.data as UserResponse).user;
+}
+
+export async function getUserInfo(): Promise<User> {
+  const response = await conduitApi.get('/user');
   return (response.data as UserResponse).user;
 }

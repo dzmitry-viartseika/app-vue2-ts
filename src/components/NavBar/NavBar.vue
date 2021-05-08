@@ -44,7 +44,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import users from '@/store/modules/users';
-import { setJWT } from '@/api/api';
+import { setJWT, getUserInfo } from '@/api/api';
 
 @Component
 export default class NavBar extends Vue {
@@ -52,14 +52,25 @@ export default class NavBar extends Vue {
     return users.user?.username;
   }
 
-  created() {
+  async created() {
     const jwtToken = localStorage.getItem('jwtToken');
-    console.log('jwtToken', jwtToken);
     if (jwtToken) {
-      setJWT(jwtToken);
+      await setJWT(jwtToken);
+      await users.getUserInformation();
     } else {
       this.$router.push('/login');
     }
+    // const jwtToken = localStorage.getItem('jwtToken');
+    // if (jwtToken) {
+    //   authApi.getUserInfo().then((resp) => {
+    //     const { user } = resp.data;
+    //     this.userInfo = user;
+    //   }).catch((e) => {
+    //     console.error(e);
+    //   });
+    // } else {
+    //   this.$router.push('/login');
+    // }
   }
 }
 </script>

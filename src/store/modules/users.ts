@@ -6,7 +6,7 @@ import {
   newUser, Profile, User, UserForUpdate, UserResponse, UserSubmit,
 } from '@/store/models.d';
 import {
-  fetchProfile, loginUser, registerUser, updateUser,
+  fetchProfile, loginUser, registerUser, updateUser, getUserInfo,
 } from '@/api/api';
 
 @Module({
@@ -53,6 +53,12 @@ class UsersModule extends VuexModule {
   @Action({ commit: 'setUser' })
   async updateSelfProfile(userUpdateFields: UserForUpdate) {
     const user = await updateUser(userUpdateFields);
+    return user;
+  }
+
+  @Action({ commit: 'setUser' })
+  async getUserInformation() {
+    const user = await getUserInfo();
     return user;
   }
 

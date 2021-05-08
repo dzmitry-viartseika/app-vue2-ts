@@ -64,7 +64,6 @@ export default class Login extends Vue {
       password: this.password,
     };
     users.login(user).then((resp) => {
-      console.log('1111');
       if (resp) {
         localStorage.setItem('jwtToken', resp.token);
       }

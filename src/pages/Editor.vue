@@ -75,7 +75,6 @@ export default class Editor extends Vue {
     if (jwtToken) {
       await setJWT(jwtToken);
       this.article.tagList = this.article.tagList?.split(' ');
-      console.log('this.article', this.article);
       await createArticle(this.article);
       this.$router.push('/');
     }
