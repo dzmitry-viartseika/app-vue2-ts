@@ -7,20 +7,43 @@
           <form>
             <fieldset>
               <fieldset class="form-group">
-                <input type="text" class="form-control form-control-lg" placeholder="Article Title">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  placeholder="Article Title"
+                  v-model="article.title"
+                >
               </fieldset>
               <fieldset class="form-group">
-                <input type="text" class="form-control" placeholder="What's this article about?">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="What's this article about?"
+                  v-model="article.body"
+                >
               </fieldset>
               <fieldset class="form-group">
-                <textarea class="form-control"
-                          rows="8" placeholder="Write your article (in markdown)"></textarea>
+                <textarea
+                  class="form-control"
+                  rows="8"
+                  placeholder="Write your article (in markdown)"
+                  v-model="article.description"
+                ></textarea>
               </fieldset>
               <fieldset class="form-group">
-                <input type="text" class="form-control"
-                       placeholder="Enter tags"><div class="tag-list"></div>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter tags"
+                  v-model="article.tagList"
+                >
+                <div class="tag-list"></div>
               </fieldset>
-              <button class="btn btn-lg pull-xs-right btn-primary" type="button">
+              <button
+                class="btn btn-lg pull-xs-right btn-primary"
+                type="button"
+                @click="createNewArticle"
+              >
                 Publish Article
               </button>
             </fieldset>
@@ -32,10 +55,32 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Editor',
-};
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator';
+import users from '@/store/modules/users';
+import { createArticle, setJWT } from '@/api/api';
+import { Article } from '@/store/models.d';
+
+@Component({})
+export default class Editor extends Vue {
+  article: Article = {
+    body: '',
+    description: '',
+    tagList: null,
+    title: '',
+  }
+
+  async createNewArticle() {
+    const jwtToken = localStorage.getItem('jwtToken');
+    if (jwtToken) {
+      await setJWT(jwtToken);
+      this.article.tagList = this.article.tagList?.split(' ');
+      console.log('this.article', this.article);
+      await createArticle(this.article);
+      this.$router.push('/');
+    }
+  }
+}
 </script>
 
 <style scoped>

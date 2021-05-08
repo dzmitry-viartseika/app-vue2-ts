@@ -8,24 +8,14 @@ import {
   ArticleResponse,
   ProfileResponse,
   Profile,
-  UserForUpdate,
+  UserForUpdate, Article,
 } from '@/store/models.d';
 
 export const conduitApi = axios.create({
   baseURL: 'https://conduit.productionready.io/api',
 });
 
-// export default {
-//   loginUser(user: UserSubmit) {
-//     const instCred = axios.create({
-//       baseURL: CURRENT_SERVER,
-//     });
-//     return instCred.post('users/login', user);
-//   },
-// };
-
 export function setJWT(jwt: string) {
-  console.log('jwt', jwt);
   conduitApi.defaults.headers.authorization = `Token ${jwt}`;
 }
 
@@ -38,6 +28,11 @@ export async function loginUser(user: UserSubmit): Promise<User|undefined> {
     user,
   });
   return (response.data as UserResponse).user;
+}
+
+export async function createArticle(article: Article): Promise<ArticleResponse> {
+  const response = await conduitApi.post('/articles', article);
+  return response.data as ArticleResponse;
 }
 
 export async function fetchProfile(userName: string) : Promise<Profile|undefined> {
@@ -61,5 +56,6 @@ export async function getFeed() {
 
 export async function updateUser(user: UserForUpdate): Promise<User> {
   const response = await conduitApi.put('/user', user);
-  return response.data as User;
+  console.log('response', response);
+  return (response.data as UserResponse).user;
 }

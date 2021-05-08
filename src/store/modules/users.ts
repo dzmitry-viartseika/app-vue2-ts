@@ -3,7 +3,7 @@ import {
 } from 'vuex-module-decorators';
 import store from '@/store/store';
 import {
-  newUser, Profile, User, UserForUpdate, UserSubmit,
+  newUser, Profile, User, UserForUpdate, UserResponse, UserSubmit,
 } from '@/store/models.d';
 import {
   fetchProfile, loginUser, registerUser, updateUser,
@@ -24,6 +24,12 @@ class UsersModule extends VuexModule {
   @Mutation
   setUser(user: User) { this.user = user; }
 
+  @Action({ commit: 'setUser' })
+  async updateUser(userUpdateFields: UserForUpdate) {
+    console.log('userUpdateFields', userUpdateFields);
+    return userUpdateFields;
+  }
+
   @Mutation
   setProfile(profile: Profile) { this.profile = profile; }
 
@@ -37,7 +43,6 @@ class UsersModule extends VuexModule {
   async login(userSubmit: UserSubmit) {
     try {
       const user = await loginUser(userSubmit);
-      console.log('user', user);
       return user;
     } catch (e) {
       console.error(e);
@@ -45,11 +50,12 @@ class UsersModule extends VuexModule {
     }
   }
 
-  @MutationAction
+  @Action({ commit: 'setUser' })
   async updateSelfProfile(userUpdateFields: UserForUpdate) {
     const user = await updateUser(userUpdateFields);
-    return { user };
+    return user;
   }
+
   // или  MutationAction
 
   // @MutationAction({ mutate: ['user'] })

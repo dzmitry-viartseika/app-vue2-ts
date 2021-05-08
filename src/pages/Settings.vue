@@ -45,8 +45,11 @@
               </button>
             </fieldset>
           </form>
+          <hr>
+          <button class="btn btn-outline-danger" @click="logOut">
+            Or click here to logout.
+          </button>
         </div>
-
       </div>
     </div>
   </div>
@@ -56,23 +59,35 @@
 import { Vue, Component } from 'vue-property-decorator';
 import { User } from '@/store/models.d';
 import users from '@/store/modules/users';
+import { clearJWT, setJWT } from '@/api/api';
 
 @Component({})
 export default class Home extends Vue {
   user: Partial<User> = {};
 
   created() {
-    console.log('wertey');
     this.user = users.user || {};
   }
 
   async updateProfile() {
-    const response = await users.updateSelfProfile({
-      email: this.user.email,
-      bio: this.user.bio,
-    });
-    console.log('response', response);
-    this.user = users.user || {};
+    const jwtToken = localStorage.getItem('jwtToken');
+    if (jwtToken) {
+      setJWT(jwtToken);
+      const user = {
+        email: this.user.email,
+        bio: this.user.bio,
+        image: this.user.image,
+        username: this.user.username,
+      };
+      await users.updateSelfProfile(user);
+    }
+  }
+
+  logOut() {
+    localStorage.removeItem('jwtToken');
+    users.updateUser({});
+    clearJWT();
+    this.$router.push('/login');
   }
 }
 </script>
