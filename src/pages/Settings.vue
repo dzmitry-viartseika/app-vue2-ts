@@ -40,10 +40,7 @@
                   v-model="user.email"
                 >
               </fieldset>
-              <fieldset class="form-group">
-                <input class="form-control form-control-lg" type="password" placeholder="Password">
-              </fieldset>
-              <button class="btn btn-lg btn-primary pull-xs-right" @click="updateProfile">
+              <button class="btn btn-lg btn-primary pull-xs-right" @click.prevent="updateProfile">
                 Update Settings
               </button>
             </fieldset>
@@ -56,11 +53,12 @@
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-property-decorator';
+import { Vue, Component } from 'vue-property-decorator';
 import { User } from '@/store/models.d';
 import users from '@/store/modules/users';
 
-export default class Settings extends Vue {
+@Component({})
+export default class Home extends Vue {
   user: Partial<User> = {};
 
   created() {
@@ -69,10 +67,11 @@ export default class Settings extends Vue {
   }
 
   async updateProfile() {
-    await users.updateSelfProfile({
+    const response = await users.updateSelfProfile({
       email: this.user.email,
       bio: this.user.bio,
     });
+
     this.user = users.user || {};
   }
 }

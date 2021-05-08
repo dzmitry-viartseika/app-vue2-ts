@@ -25,11 +25,12 @@ export const conduitApi = axios.create({
 // };
 
 export function setJWT(jwt: string) {
-  conduitApi.defaults.headers.commit.Authorization = `Token ${jwt}`;
+  console.log('jwt', jwt);
+  conduitApi.defaults.headers.authorization = `Token ${jwt}`;
 }
 
 export function clearJWT() {
-  delete conduitApi.defaults.headers.commit.Authorization;
+  delete conduitApi.defaults.headers.authorization;
 }
 
 export async function loginUser(user: UserSubmit): Promise<User|undefined> {
@@ -58,7 +59,7 @@ export async function getFeed() {
   return response.data as ArticleResponse;
 }
 
-export async function updateUser(user: UserForUpdate) {
+export async function updateUser(user: UserForUpdate): Promise<User> {
   const response = await conduitApi.put('/user', user);
   return response.data as User;
 }

@@ -17,9 +17,7 @@ import NavBar from '@/components/NavBar/NavBar.vue';
     NavBar,
   },
 })
-export default class App extends Vue {
-
-}
+export default class App extends Vue {}
 
 </script>
 

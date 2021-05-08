@@ -63,7 +63,10 @@ export default class Login extends Vue {
       email: this.email,
       password: this.password,
     };
-    users.login(user).then(() => {
+    users.login(user).then((resp) => {
+      if (resp) {
+        localStorage.setItem('jwtToken', resp.token);
+      }
       this.$router.push('/');
     })
       .catch((e) => {

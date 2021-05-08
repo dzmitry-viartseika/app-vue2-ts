@@ -1,18 +1,21 @@
 <template>
   <nav class="navbar navbar-light">
     <div class="container">
-      <a class="navbar-brand" href="index.html">conduit</a>
+      <router-link class="navbar-brand" to="/">
+        conduit
+      </router-link>
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
-          <!-- Add "active" class when you're on that page" -->
-          <a class="nav-link active" href="">Home</a>
+          <router-link class="nav-link" to="/">
+            <i class="ion-compose"></i>&nbsp;Home
+          </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="userName">
           <router-link class="nav-link" to="/editor">
             <i class="ion-compose"></i>&nbsp;New Article
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="userName">
           <router-link class="nav-link" to="/settings">
             <i class="ion-gear-a"></i>&nbsp;Settings
           </router-link>
@@ -20,6 +23,11 @@
         <li class="nav-item" v-if="!userName">
           <router-link class="nav-link" to="/register">
             Sign up
+          </router-link>
+        </li>
+        <li class="nav-item" v-if="!userName">
+          <router-link class="nav-link" to="/login">
+            Sign in
           </router-link>
         </li>
         <li class="nav-item" v-else>
@@ -36,6 +44,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import users from '@/store/modules/users';
+import { setJWT } from '@/api/api';
 
 @Component
 export default class NavBar extends Vue {
@@ -44,7 +53,13 @@ export default class NavBar extends Vue {
   }
 
   created() {
-    console.log('userName', this.userName);
+    const jwtToken = localStorage.getItem('jwtToken');
+    console.log('jwtToken', jwtToken);
+    if (jwtToken) {
+      setJWT(jwtToken);
+    } else {
+      this.$router.push('/login');
+    }
   }
 }
 </script>
