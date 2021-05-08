@@ -40,8 +40,6 @@ export async function fetchProfile(userName: string) : Promise<Profile|undefined
   return (response.data as ProfileResponse).profile;
 }
 
-// testwertey@gmail.com
-
 export async function registerUser(user: newUser): Promise<newUser|undefined> {
   const response = await conduitApi.post('/users/', {
     user,
